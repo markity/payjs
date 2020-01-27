@@ -164,7 +164,7 @@ package main
 
 import (
 	"fmt"
-	"payjs"
+	"github.com/markity/payjs"
 )
 
 func main() {
@@ -197,7 +197,7 @@ package main
 
 import (
 	"fmt"
-	"payjs"
+	"github.com/markity/payjs"
 )
 
 func main() {
