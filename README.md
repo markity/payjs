@@ -11,12 +11,18 @@
 - [ ] 撤销订单
 - [ ] 分账支付
 
+## 获取模块
+
+```shell
+> go get github.com/markity/payjs
+```
+
 ## 基本使用
 
-- [扫码支付(native)](#扫码支付(native))
-- [查询订单(check)](#查询订单(check))
-- [关闭订单(close)](#关闭订单(close))
-- [退款(refund)](#退款(refund))
+- [扫码支付(native)](#扫码支付native)
+- [查询订单(check)](#查询订单check)
+- [关闭订单(close)](#关闭订单close)
+- [退款(refund)](#退款refund)
 
 ### 扫码支付(native)
 
@@ -25,7 +31,7 @@ package main
 
 import (
 	"fmt"
-	"payjs/payjs"
+	"github.com/markity/payjs"
 )
 
 func main() {
@@ -55,7 +61,7 @@ package main
 
 import (
 	"fmt"
-	"payjs/payjs"
+	"github.com/markity/payjs"
 )
 
 func main() {
@@ -88,7 +94,7 @@ package main
 
 import (
 	"fmt"
-	"payjs/payjs"
+	"github.com/markity/payjs"
 )
 
 func main() {
@@ -115,7 +121,7 @@ package main
 
 import (
 	"fmt"
-	"payjs/payjs"
+	"github.com/markity/payjs"
 )
 
 func main() {
