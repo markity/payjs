@@ -186,7 +186,7 @@ func main() {
 
 > 注意1: 付款码支付不支持回调, 需自行调用CheckOrder检查是否完成支付
 
-> 注意2: 不论请求成功失败, microPayResp.ReturnCode恒为0, 成功与否取决于microPayResp.ReturnCode是否为`需要用户输入支付密码`
+> 注意2: 不论请求成功失败, microPayResp.ReturnCode恒为0, 成功与否取决于microPayResp.ReturnMsg是否为`需要用户输入支付密码`
 
 ### 撤销订单(reverse)
 
