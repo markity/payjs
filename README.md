@@ -1,4 +1,4 @@
-# PayJS SDK for Go
+# Payjs SDK for Go
 
 ## 当前实现
 
@@ -35,8 +35,8 @@ import (
 )
 
 func main() {
-    mch := payjs.NewMch("your-mchid", "your-mchkey")
-    // 说明: ReturnCode不为1 或 签名错误均视为error
+	mch := payjs.NewMch("your-mchid", "your-mchkey")
+	// 说明: ReturnCode不为1 或 签名错误均视为error
 	nativeResp, err := mch.Native(payjs.NativeInfo{TotalFee: 10, OutTradeNo: "2020_1_27_001", Body: "支付测试"})
 	if err != nil {
 		fmt.Printf("失败: %v\n", err)
@@ -65,8 +65,8 @@ import (
 )
 
 func main() {
-    mch := payjs.NewMch("your-mchid", "your-mchkey")
-    // 说明: ReturnCode不为1 或 签名错误均视为error
+	 mch := payjs.NewMch("your-mchid", "your-mchkey")
+	// 说明: ReturnCode不为1 或 签名错误均视为error
 	checkResp, err := mch.CheckOrder(payjs.CheckOrderInfo{PayjsOrderID: "order-id"})
 	if err != nil {
 		fmt.Printf("失败: %v\n", err)
@@ -98,8 +98,8 @@ import (
 )
 
 func main() {
-    mch := payjs.NewMch("your-mchid", "your-mchkey")
-    // 说明: ReturnCode不为1 或 签名错误均视为error
+	mch := payjs.NewMch("your-mchid", "your-mchkey")
+	// 说明: ReturnCode不为1 或 签名错误均视为error
 	closeResp, err := mch.CloseOrder(payjs.CloseOrderInfo{PayjsOrderID: "order-id"})
 	if err != nil {
 		fmt.Printf("失败: %v\n", err)
@@ -125,8 +125,8 @@ import (
 )
 
 func main() {
-    mch := payjs.NewMch("your-mchid", "your-mchkey")
-    // 说明: ReturnCode不为1 或 签名错误均视为error
+	mch := payjs.NewMch("your-mchid", "your-mchkey")
+	// 说明: ReturnCode不为1 或 签名错误均视为error
 	refundResp, err := mch.Refund(payjs.RefundInfo{PayjsOrderID: "order-id"})
 	if err != nil {
 		fmt.Printf("失败: %v\n", err)
