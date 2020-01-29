@@ -37,7 +37,7 @@ func toolCheckSignResp(respData []byte, mchKey string) bool {
 	kvMap := make(map[string]interface{})
 	json.Unmarshal(respData, &kvMap)
 	sign, exist := kvMap["sign"]
-	// 对于某些特殊情况, 若重复退款, 即使return_code为1也无sign
+	// 对于某些特殊情况, 如重复退款, 即使return_code为1也无sign
 	if !exist {
 		return true
 	}

@@ -26,14 +26,17 @@ type mch struct {
 }
 
 // Native 发送扫码支付请求
-func (m *mch) Native(nativeInfo NativeInfo) (*NativeResponse, error) {
+func (m *mch) NativePay(nativeInfo NativeInfo) (*NativeResponse, error) {
 	if err := nativeInfo.checkEmpty(); err != nil {
 		return nil, err
 	}
 	nativeReq := &nativeRequest{MchID: m.mchID, TotalFee: nativeInfo.TotalFee, OutTradeNo: nativeInfo.OutTradeNo, Body: nativeInfo.Body, Attach: nativeInfo.Attach, NotifyUrl: nativeInfo.NotifyUrl}
 	nativeReq.setSign(m.mchKey)
-	nativeReqBytes := nativeReq.marshal()
-	resp, err := http.DefaultClient.Post("https://payjs.cn/api/native", "application/json", bytes.NewReader(nativeReqBytes))
+	b := nativeReq.marshal()
+	if DEBUG {
+		fmt.Printf("%s\n", b)
+	}
+	resp, err := http.DefaultClient.Post("https://payjs.cn/api/native", "application/json", bytes.NewReader(b))
 	if err != nil {
 		return nil, err
 	}
@@ -42,6 +45,9 @@ func (m *mch) Native(nativeInfo NativeInfo) (*NativeResponse, error) {
 	respBodyBytes, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
+	}
+	if DEBUG {
+		fmt.Printf("%s\n", respBodyBytes)
 	}
 	if err := json.Unmarshal(respBodyBytes, nativeResp); err != nil {
 		return nil, err
@@ -68,6 +74,9 @@ func (m *mch) CloseOrder(closeOrderInfo CloseOrderInfo) (*CloseOrderResponse, er
 	closeOrderReq := &closeOrderRequest{PayjsOrderID: closeOrderInfo.PayjsOrderID}
 	closeOrderReq.setSign(m.mchKey)
 	b := closeOrderReq.marshal()
+	if DEBUG {
+		fmt.Printf("%s\n", b)
+	}
 	resp, err := http.DefaultClient.Post("https://payjs.cn/api/close", "application/json", bytes.NewReader(b))
 	if err != nil {
 		return nil, err
@@ -77,6 +86,9 @@ func (m *mch) CloseOrder(closeOrderInfo CloseOrderInfo) (*CloseOrderResponse, er
 	respBodyBytes, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
+	}
+	if DEBUG {
+		fmt.Printf("%s\n", respBodyBytes)
 	}
 	if err := json.Unmarshal(respBodyBytes, closeOrderResp); err != nil {
 		return nil, err
@@ -103,6 +115,9 @@ func (m *mch) Refund(refundInfo RefundInfo) (*RefundResponse, error) {
 	refundReq := &refundRequest{PayjsOrderID: refundInfo.PayjsOrderID}
 	refundReq.setSign(m.mchKey)
 	b := refundReq.marshal()
+	if DEBUG {
+		fmt.Printf("%s\n", b)
+	}
 	resp, err := http.DefaultClient.Post("https://payjs.cn/api/refund", "application/json", bytes.NewReader(b))
 	if err != nil {
 		return nil, err
@@ -112,6 +127,9 @@ func (m *mch) Refund(refundInfo RefundInfo) (*RefundResponse, error) {
 	respBodyBytes, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
+	}
+	if DEBUG {
+		fmt.Printf("%s\n", respBodyBytes)
 	}
 	if err := json.Unmarshal(respBodyBytes, refundResp); err != nil {
 		return nil, err
@@ -138,6 +156,9 @@ func (m *mch) CheckOrder(checkOrderInfo CheckOrderInfo) (*CheckOrderResponse, er
 	checkOrderReq := &checkOrderRequest{PayjsOrderID: checkOrderInfo.PayjsOrderID}
 	checkOrderReq.setSign(m.mchKey)
 	b := checkOrderReq.marshal()
+	if DEBUG {
+		fmt.Printf("%s\n", b)
+	}
 	resp, err := http.DefaultClient.Post("https://payjs.cn/api/check", "application/json", bytes.NewReader(b))
 	if err != nil {
 		return nil, err
@@ -147,6 +168,9 @@ func (m *mch) CheckOrder(checkOrderInfo CheckOrderInfo) (*CheckOrderResponse, er
 	respBodyBytes, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
+	}
+	if DEBUG {
+		fmt.Printf("%s\n", respBodyBytes)
 	}
 	if err := json.Unmarshal(respBodyBytes, checkOrderResp); err != nil {
 		return nil, err
@@ -172,8 +196,11 @@ func (m *mch) MicroPay(microPayInfo MicroPayInfo) (*MicroPayResponse, error) {
 	}
 	microPayReq := &microPayRequest{MchID: m.mchID, TotalFee: microPayInfo.TotalFee, OutTradeNo: microPayInfo.OutTradeNo, Body: microPayInfo.Body, Attach: microPayInfo.Attach, AuthCode: microPayInfo.AuthCode}
 	microPayReq.setSign(m.mchKey)
-	nativeReqBytes := microPayReq.marshal()
-	resp, err := http.DefaultClient.Post("https://payjs.cn/api/micropay", "application/json", bytes.NewReader(nativeReqBytes))
+	b := microPayReq.marshal()
+	if DEBUG {
+		fmt.Printf("%s\n", b)
+	}
+	resp, err := http.DefaultClient.Post("https://payjs.cn/api/micropay", "application/json", bytes.NewReader(b))
 	if err != nil {
 		return nil, err
 	}
@@ -182,6 +209,9 @@ func (m *mch) MicroPay(microPayInfo MicroPayInfo) (*MicroPayResponse, error) {
 	respBodyBytes, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
+	}
+	if DEBUG {
+		fmt.Printf("%s\n", respBodyBytes)
 	}
 	if err := json.Unmarshal(respBodyBytes, mircoPayResp); err != nil {
 		return nil, err
@@ -208,6 +238,9 @@ func (m *mch) ReverseOrder(reverseOrderInfo ReverseOrderInfo) (*ReverseOrderResp
 	reverseOrderReq := &reverseOrderRequest{PayjsOrderID: reverseOrderInfo.PayjsOrderID}
 	reverseOrderReq.setSign(m.mchKey)
 	b := reverseOrderReq.marshal()
+	if DEBUG {
+		fmt.Printf("%s\n", b)
+	}
 	resp, err := http.DefaultClient.Post("https://payjs.cn/api/reverse", "application/json", bytes.NewReader(b))
 	if err != nil {
 		return nil, err
@@ -218,11 +251,14 @@ func (m *mch) ReverseOrder(reverseOrderInfo ReverseOrderInfo) (*ReverseOrderResp
 	if err != nil {
 		return nil, err
 	}
+	if DEBUG {
+		fmt.Printf("%s\n", respBodyBytes)
+	}
 	if err := json.Unmarshal(respBodyBytes, reverseOrderResp); err != nil {
 		return nil, err
 	}
 
-	// 校验签名
+	// 检查是否成功
 	if reverseOrderResp.ReturnCode != 1 {
 		return nil, errors.New(fmt.Sprintf("failed: return_code:%v, return_msg:%v", reverseOrderResp.ReturnCode, reverseOrderResp.ReturnMsg))
 	}

@@ -1,8 +1,9 @@
 package payjs
 
-import "errors"
-
-import "encoding/json"
+import (
+	"encoding/json"
+	"errors"
+)
 
 // MicroPayInfo 付款码支付信息表
 type MicroPayInfo struct {

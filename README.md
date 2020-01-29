@@ -42,7 +42,7 @@ import (
 
 func main() {
 	mch := payjs.NewMch("your-mchid", "your-mchkey")
-	// 说明: ReturnCode不为1 或 签名错误均视为error
+	// 说明: ReturnCode不为1 或 签名错误均视为error, 此模块所有方法均自动校验签名
 	nativeResp, err := mch.Native(payjs.NativeInfo{TotalFee: 10, OutTradeNo: "2020_1_27_001", Body: "支付测试"})
 	if err != nil {
 		fmt.Printf("失败: %v\n", err)
@@ -73,8 +73,7 @@ import (
 )
 
 func main() {
-	 mch := payjs.NewMch("your-mchid", "your-mchkey")
-	// 说明: ReturnCode不为1 或 签名错误均视为error
+	mch := payjs.NewMch("your-mchid", "your-mchkey")
 	checkResp, err := mch.CheckOrder(payjs.CheckOrderInfo{PayjsOrderID: "order-id"})
 	if err != nil {
 		fmt.Printf("失败: %v\n", err)
@@ -109,7 +108,6 @@ import (
 
 func main() {
 	mch := payjs.NewMch("your-mchid", "your-mchkey")
-	// 说明: ReturnCode不为1 或 签名错误均视为error
 	closeResp, err := mch.CloseOrder(payjs.CloseOrderInfo{PayjsOrderID: "order-id"})
 	if err != nil {
 		fmt.Printf("失败: %v\n", err)
@@ -127,6 +125,8 @@ func main() {
 
 ### 退款(refund)
 
+**使用场景: 对于已经付款的订单, 可以退款, 资金自动原路返回**
+
 ```go
 package main
 
@@ -137,7 +137,6 @@ import (
 
 func main() {
 	mch := payjs.NewMch("your-mchid", "your-mchkey")
-	// 说明: ReturnCode不为1 或 签名错误均视为error
 	refundResp, err := mch.Refund(payjs.RefundInfo{PayjsOrderID: "order-id"})
 	if err != nil {
 		fmt.Printf("失败: %v\n", err)
@@ -153,7 +152,7 @@ func main() {
 }
 ```
 
-> 注意: 若重复退款已经退款的订单, return_code也为1, 但无sign字段
+> 注意: 若重复退款已经退款的订单, return_code为1, 但无sign字段
 
 ### 付款码支付(micropay)
 
@@ -216,20 +215,29 @@ func main() {
 }
 ```
 
-> 注意: 撤销订单接口只能应用于7天以内的订单
+> 注意: 撤销订单接口只能应用于7天以内的异常订单, 对于正常订单无效
 
 ## Change logs
+
+```
+版本: v0.2.1
+时间: 2020年1月29日
+内容:
+  mch.Native改名mch.NativePay
+  新增payjs.DEBUG配置, 开启后发送的json数据以及服务器响应的json数据将被输出
+```
 
 ```
 版本: v0.2
 时间: 2020年1月28日
 内容:
-	修复订单重复退款响应的签名无法正常校验的bug
-	实现了撤销订单, 付款码支付功能
+  修复订单重复退款响应的签名无法正常校验的bug
+  实现了撤销订单, 付款码支付功能
 ```
 
 ```
 版本: v0.1
 时间: 2020年1月27日
-内容: 实现扫码支付, 查询订单, 关闭订单, 退款
+内容:
+  实现扫码支付, 查询订单, 关闭订单, 退款
 ```
