@@ -55,8 +55,6 @@ type NativeResponse struct {
 	ReturnCode   int    `json:"return_code"`    // Y 1:请求成功,0:请求失败.若请求失败, mch.Native方法将返回错误
 	ReturnMsg    string `json:"return_msg"`     // Y 返回消息
 	PayjsOrderID string `json:"payjs_order_id"` // Y PAYJS 平台订单号
-	OutTradeNo   string `json:"out_trade_no"`   // Y 用户生成的订单号原样返回
-	TotalFee     int    `json:"total_fee"`      // Y 金额原样返回。单位：分
 	Qrcode       string `json:"qrcode"`         // Y 二维码图片地址
 	CodeUrl      string `json:"code_url"`       // Y 可将该参数生成二维码展示出来进行扫码支付(有效期2小时)
 	Sign         string `json:"sign"`           // Y 数据签名, 用于验证请求的合法性, 和校验请求信息正误.若签名错误, mch.Native方法将返回错误

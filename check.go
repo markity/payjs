@@ -34,7 +34,6 @@ type CheckOrderResponse struct {
 	ReturnCode    int    `json:"return_code"`    // Y 1:请求成功 0:请求失败, 若失败mch.CheckOrder方法会返回错误
 	MchID         string `json:"mchid"`          // Y PAYJS 平台商户号
 	OutTradeNo    string `json:"out_trade_no"`   // Y 用户端订单号
-	PayjsOrderID  string `json:"payjs_order_id"` // Y PAYJS 订单号
 	TransactionID string `json:"transaction_id"` // N 微信显示订单号
 	Status        int    `json:"status"`         // Y 0：未支付，1：支付成功
 	Openid        string `json:"openid"`         // N 支付用户的 OPENID(如果支付则有此字段)

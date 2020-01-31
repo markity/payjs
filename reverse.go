@@ -35,8 +35,7 @@ func (reverseOrderReq *reverseOrderRequest) marshal() []byte {
 
 // ReverseOrderResponse 订单撤销响应的json结构体
 type ReverseOrderResponse struct {
-	ReturnCode   int    `json:"return_code"`    // Y 1:请求成功 0:请求失败, 若失败 mch.Close将返回错误
-	ReturnMsg    string `json:"return_msg"`     // Y 返回消息
-	PayjsOrderID string `json:"payjs_order_id"` // Y PAYJS 平台订单号
-	Sign         string `json:"sign"`           // Y 数据签名, mch.Close方法会检验签名, 若签名有误则返回错误
+	ReturnCode int    `json:"return_code"` // Y 1:请求成功 0:请求失败, 若失败 mch.Close将返回错误
+	ReturnMsg  string `json:"return_msg"`  // Y 返回消息
+	Sign       string `json:"sign"`        // Y 数据签名, mch.Close方法会检验签名, 若签名有误则返回错误
 }

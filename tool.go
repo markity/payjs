@@ -142,8 +142,6 @@ func toolCheckSignResp(respData []byte, mchKey string) bool {
 	}
 	walkMap("", kvMap, keys)
 	kvList = append(kvList, fmt.Sprintf("key=%v", mchKey))
-	kvChain := strings.Join(kvList, "&")
-	fmt.Println(kvChain)
 
 	// 比较签名
 	realSign := strings.ToUpper(fmt.Sprintf("%x", md5.Sum([]byte(strings.Join(kvList, "&")))))
