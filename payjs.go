@@ -1,5 +1,5 @@
 package payjs
 
-const VERSION string = "0.2.2"
+const VERSION string = "0.3"
 
 var DEBUG bool = false
