@@ -30,7 +30,7 @@ func (m *mch) NativePay(nativePayInfo NativePayInfo) (*NativePayResponse, error)
 	if err := nativePayInfo.checkEmpty(); err != nil {
 		return nil, err
 	}
-	nativeReq := &nativePayRequest{MchID: m.mchID, TotalFee: nativePayInfo.TotalFee, OutTradeNo: nativePayInfo.OutTradeNo, Body: nativePayInfo.Body, Attach: nativePayInfo.Attach, NotifyUrl: nativePayInfo.NotifyUrl}
+	nativeReq := &nativePayRequest{MchID: m.mchID, TotalFee: nativePayInfo.TotalFee, OutTradeNo: nativePayInfo.OutTradeNo, Body: nativePayInfo.Body, Attach: nativePayInfo.Attach, NotifyURL: nativePayInfo.NotifyURL}
 	nativeReq.setSign(m.mchKey)
 	b := nativeReq.marshal()
 	if DEBUG {

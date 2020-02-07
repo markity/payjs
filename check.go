@@ -35,7 +35,7 @@ type CheckOrderResponse struct {
 	OutTradeNo    string `json:"out_trade_no"`   // Y 用户端订单号
 	TransactionID string `json:"transaction_id"` // N 微信显示订单号
 	Status        int    `json:"status"`         // Y 0：未支付，1：支付成功
-	Openid        string `json:"openid"`         // N 支付用户的 OPENID(如果支付则有此字段)
+	OpenID        string `json:"openid"`         // N 支付用户的 OPENID(如果支付则有此字段)
 	TotalFee      int    `json:"total_fee"`      // N 订单金额
 	PaidTime      string `json:"paid_time"`      // N 订单支付时间(如果支付则有此字段)
 	Attach        string `json:"attach"`         // N 用户自定义数据

@@ -12,7 +12,7 @@ type NativePayInfo struct {
 
 	Body      string // N 订单标题
 	Attach    string // N 用户自定义数据，在notify的时候会原样返回
-	NotifyUrl string // N 接收微信支付异步通知的回调地址。必须为可直接访问的URL，不能带参数、session验证、csrf验证。留空则不通知
+	NotifyURL string // N 接收微信支付异步通知的回调地址。必须为可直接访问的URL，不能带参数、session验证、csrf验证。留空则不通知
 }
 
 // check 检查必填项是否为空
@@ -34,7 +34,7 @@ type nativePayRequest struct {
 
 	Body      string `json:"body,omitempty"`
 	Attach    string `json:"attach,omitempty"`
-	NotifyUrl string `json:"notify_url,omitempty"`
+	NotifyURL string `json:"notify_url,omitempty"`
 
 	Sign string `json:"sign"`
 }
@@ -56,6 +56,6 @@ type NativePayResponse struct {
 	ReturnMsg    string `json:"return_msg"`     // Y 返回消息
 	PayjsOrderID string `json:"payjs_order_id"` // Y PAYJS 平台订单号
 	Qrcode       string `json:"qrcode"`         // Y 二维码图片地址
-	CodeUrl      string `json:"code_url"`       // Y 可将该参数生成二维码展示出来进行扫码支付(有效期2小时)
+	CodeURL      string `json:"code_url"`       // Y 可将该参数生成二维码展示出来进行扫码支付(有效期2小时)
 	Sign         string `json:"sign"`           // Y 数据签名, 用于验证请求的合法性, 和校验请求信息正误.若签名错误, mch.NativePay方法将返回错误
 }

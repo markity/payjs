@@ -53,7 +53,7 @@ func main() {
 	fmt.Println(nativePayResp.ReturnMsg)
 	fmt.Println(nativePayResp.PayjsOrderID)
 	fmt.Println(nativePayResp.Qrcode)
-	fmt.Println(nativePayResp.CodeUrl)
+	fmt.Println(nativePayResp.CodeURL)
 	fmt.Println(nativePayResp.Sign)
 }
 ```
@@ -113,7 +113,7 @@ func main() {
 	fmt.Println(checkResp.OutTradeNo)
 	fmt.Println(checkResp.TransactionID)
 	fmt.Println(checkResp.Status)
-	fmt.Println(checkResp.Openid)
+	fmt.Println(checkResp.OpenID)
 	fmt.Println(checkResp.TotalFee)
 	fmt.Println(checkResp.PaidTime)
 	fmt.Println(checkResp.Attach)
@@ -207,6 +207,14 @@ func main() {
 > 注意: 若向已经退款的订单重复退款, return_code为1, 但无sign字段
 
 ## Change logs
+
+```
+版本: v0.3.2
+时间: 2020年2月7日
+内容:
+  Url统一改名URL
+  Openid统一改名OpenID
+```
 
 ```
 版本: v0.3.1
