@@ -43,18 +43,18 @@ import (
 func main() {
 	mch := payjs.NewMch("your-mchid", "your-mchkey")
 	// 说明: ReturnCode不为1 或 签名错误均视为error, 此模块所有方法均自动校验签名
-	nativeResp, err := mch.Native(payjs.NativeInfo{TotalFee: 10, OutTradeNo: "2020_1_27_001", Body: "支付测试"})
+	nativePayResp, err := mch.NativePay(payjs.NativePayInfo{TotalFee: 10, OutTradeNo: "2020_1_27_001", Body: "支付测试"})
 	if err != nil {
 		fmt.Printf("失败: %v\n", err)
 		return
 	}
 
-	fmt.Println(nativeResp.ReturnCode)
-	fmt.Println(nativeResp.ReturnMsg)
-	fmt.Println(nativeResp.PayjsOrderID)
-	fmt.Println(nativeResp.Qrcode)
-	fmt.Println(nativeResp.CodeUrl)
-	fmt.Println(nativeResp.Sign)
+	fmt.Println(nativePayResp.ReturnCode)
+	fmt.Println(nativePayResp.ReturnMsg)
+	fmt.Println(nativePayResp.PayjsOrderID)
+	fmt.Println(nativePayResp.Qrcode)
+	fmt.Println(nativePayResp.CodeUrl)
+	fmt.Println(nativePayResp.Sign)
 }
 ```
 
@@ -207,6 +207,14 @@ func main() {
 > 注意: 若向已经退款的订单重复退款, return_code为1, 但无sign字段
 
 ## Change logs
+
+```
+版本: v0.3.1
+时间: 2020年2月7日
+内容:
+  Native统一改名NativePay
+  修正README中的错误
+```
 
 ```
 版本: v0.3

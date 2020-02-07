@@ -26,11 +26,11 @@ type mch struct {
 }
 
 // Native 发送扫码支付请求
-func (m *mch) NativePay(nativeInfo NativeInfo) (*NativeResponse, error) {
-	if err := nativeInfo.checkEmpty(); err != nil {
+func (m *mch) NativePay(nativePayInfo NativePayInfo) (*NativePayResponse, error) {
+	if err := nativePayInfo.checkEmpty(); err != nil {
 		return nil, err
 	}
-	nativeReq := &nativeRequest{MchID: m.mchID, TotalFee: nativeInfo.TotalFee, OutTradeNo: nativeInfo.OutTradeNo, Body: nativeInfo.Body, Attach: nativeInfo.Attach, NotifyUrl: nativeInfo.NotifyUrl}
+	nativeReq := &nativePayRequest{MchID: m.mchID, TotalFee: nativePayInfo.TotalFee, OutTradeNo: nativePayInfo.OutTradeNo, Body: nativePayInfo.Body, Attach: nativePayInfo.Attach, NotifyUrl: nativePayInfo.NotifyUrl}
 	nativeReq.setSign(m.mchKey)
 	b := nativeReq.marshal()
 	if DEBUG {
@@ -41,7 +41,7 @@ func (m *mch) NativePay(nativeInfo NativeInfo) (*NativeResponse, error) {
 		return nil, err
 	}
 
-	nativeResp := &NativeResponse{}
+	nativePayResp := &NativePayResponse{}
 	respBodyBytes, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
@@ -49,13 +49,13 @@ func (m *mch) NativePay(nativeInfo NativeInfo) (*NativeResponse, error) {
 	if DEBUG {
 		fmt.Printf("%s\n", respBodyBytes)
 	}
-	if err := json.Unmarshal(respBodyBytes, nativeResp); err != nil {
+	if err := json.Unmarshal(respBodyBytes, nativePayResp); err != nil {
 		return nil, err
 	}
 
 	// 判断请求是否成功
-	if nativeResp.ReturnCode != 1 {
-		return nil, errors.New(fmt.Sprintf("failed: return_code:%v, return_msg:%v", nativeResp.ReturnCode, nativeResp.ReturnMsg))
+	if nativePayResp.ReturnCode != 1 {
+		return nil, errors.New(fmt.Sprintf("failed: return_code:%v, return_msg:%v", nativePayResp.ReturnCode, nativePayResp.ReturnMsg))
 	}
 
 	// 检验签名
@@ -63,7 +63,7 @@ func (m *mch) NativePay(nativeInfo NativeInfo) (*NativeResponse, error) {
 		return nil, errors.New("response signature is wrong")
 	}
 
-	return nativeResp, nil
+	return nativePayResp, nil
 }
 
 // CloseOrder 关闭未支付的订单

@@ -5,8 +5,8 @@ import (
 	"errors"
 )
 
-// NativeInfo 扫码支付信息表
-type NativeInfo struct {
+// NativePayInfo 扫码支付信息表
+type NativePayInfo struct {
 	TotalFee   int    // Y 金额。单位：分
 	OutTradeNo string // Y 用户端自主生成的订单号
 
@@ -16,7 +16,7 @@ type NativeInfo struct {
 }
 
 // check 检查必填项是否为空
-func (info *NativeInfo) checkEmpty() error {
+func (info *NativePayInfo) checkEmpty() error {
 	if info.TotalFee <= 0 {
 		return errors.New("TotalFee must be greater than 0")
 	}
@@ -26,8 +26,8 @@ func (info *NativeInfo) checkEmpty() error {
 	return nil
 }
 
-// nativeRequest Native请求的json结构体
-type nativeRequest struct {
+// nativePayRequest NativePay请求的json结构体
+type nativePayRequest struct {
 	MchID      string `json:"mchid"`
 	TotalFee   int    `json:"total_fee"`
 	OutTradeNo string `json:"out_trade_no"`
@@ -40,22 +40,22 @@ type nativeRequest struct {
 }
 
 // setSign 设置签名
-func (nativeReq *nativeRequest) setSign(mchKey string) {
-	nativeReq.Sign = toolSignReq(nativeReq, mchKey)
+func (nativePayReq *nativePayRequest) setSign(mchKey string) {
+	nativePayReq.Sign = toolSignReq(nativePayReq, mchKey)
 }
 
 // marshal 结构体编码为json
-func (nativeReq *nativeRequest) marshal() []byte {
-	b, _ := json.Marshal(nativeReq)
+func (nativePayReq *nativePayRequest) marshal() []byte {
+	b, _ := json.Marshal(nativePayReq)
 	return b
 }
 
-// NativeResponse 扫码支付请求返回值
-type NativeResponse struct {
-	ReturnCode   int    `json:"return_code"`    // Y 1:请求成功,0:请求失败.若请求失败, mch.Native方法将返回错误
+// NativePayResponse 扫码支付请求返回值
+type NativePayResponse struct {
+	ReturnCode   int    `json:"return_code"`    // Y 1:请求成功,0:请求失败.若请求失败, mch.NativePay方法将返回错误
 	ReturnMsg    string `json:"return_msg"`     // Y 返回消息
 	PayjsOrderID string `json:"payjs_order_id"` // Y PAYJS 平台订单号
 	Qrcode       string `json:"qrcode"`         // Y 二维码图片地址
 	CodeUrl      string `json:"code_url"`       // Y 可将该参数生成二维码展示出来进行扫码支付(有效期2小时)
-	Sign         string `json:"sign"`           // Y 数据签名, 用于验证请求的合法性, 和校验请求信息正误.若签名错误, mch.Native方法将返回错误
+	Sign         string `json:"sign"`           // Y 数据签名, 用于验证请求的合法性, 和校验请求信息正误.若签名错误, mch.NativePay方法将返回错误
 }
